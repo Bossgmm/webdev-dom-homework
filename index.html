@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Проект "Комменты"</title>
@@ -8,7 +8,7 @@
 
   <body>
     <div class="container">
-      <ul class="comments">
+      <ul id="list" class="comments">
         <li class="comment">
           <div class="comment-header">
             <div>Глеб Фокин</div>
@@ -46,26 +46,65 @@
       </ul>
       <div class="add-form">
         <input
+          id="name"
           type="text"
           class="add-form-name"
           placeholder="Введите ваше имя"
         />
         <textarea
+          id="comment"
           type="textarea"
           class="add-form-text"
           placeholder="Введите ваш коментарий"
           rows="4"
         ></textarea>
         <div class="add-form-row">
-          <button class="add-form-button">Написать</button>
+          <button id="add" class="add-form-button">Написать</button>
         </div>
       </div>
     </div>
   </body>
 
   <script>
-    "use strict";
-    // Код писать здесь
-    console.log("It works!");
+    const button = document.getElementById("add");
+    const list = document.getElementById("list");
+    const inputName = document.getElementById("name");
+    const inputComment = document.getElementById("comment");
+    const likeButton = document.getElementById("like");
+
+    const date = new Date();
+
+    let likesCounter = 0;
+
+    button.addEventListener("click", () => {
+      inputName.classList.remove("error");
+      inputComment.classList.remove("error");
+      if(inputName.value === "" || inputComment.value ===""){
+        inputName.classList.add("error");
+        inputComment.classList.add("error");
+        
+        return;
+      }
+
+      const oldLi = list.innerHTML;
+      list.innerHTML = oldLi + `<li class="comment">
+          <div class="comment-header">
+            <div>${inputName.value}</div>
+            <div>${date.toLocaleString('ru-RU')}</div>
+          </div>
+          <div class="comment-body">
+            <div class="comment-text">
+            ${inputComment.value}
+            </div>
+          </div>
+          <div class="comment-footer">
+            <div class="likes">
+              <span class="likes-counter">${likesCounter}</span>
+              <button class="like-button -active-like"></button>
+            </div>
+          </div>
+        </li>`;
+      inputName.value = "";
+    });
   </script>
 </html>
