@@ -76,6 +76,19 @@
 
     let likesCounter = 0;
 
+    function formatDate(date) {
+    const d = new Date(date);
+
+      const day = String(d.getDate()).padStart(2, '0');
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const year = String(d.getFullYear()).slice(-2);
+
+      const hours = String(d.getHours()).padStart(2, '0');
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+
+      return `${day}.${month}.${year} ${hours}:${minutes}`;
+    }
+
     button.addEventListener("click", () => {
       inputName.classList.remove("error");
       inputComment.classList.remove("error");
@@ -90,7 +103,7 @@
       list.innerHTML = oldLi + `<li class="comment">
           <div class="comment-header">
             <div>${inputName.value}</div>
-            <div>${date.toLocaleString('ru-RU')}</div>
+            <div>${formatDate(new Date())}</div>
           </div>
           <div class="comment-body">
             <div class="comment-text">
