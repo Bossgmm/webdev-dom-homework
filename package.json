@@ -20,5 +20,8 @@
   "homepage": "https://github.com/Bossgmm/webdev-dom-homework#readme",
   "dependencies": {
     "date-fns": "^4.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.3"
   }
 }
