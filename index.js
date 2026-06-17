@@ -41,17 +41,43 @@ button.addEventListener('click', () => {
         return
     }
 
-    comments.push({
-        name: inputName.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
+    const newComments = {
         date: formatDate(new Date()),
+        likes: likesCounter,
+        isLiked: false,
         text: inputComment.value
             .replaceAll('<', '&lt;')
             .replaceAll('>', '&gt;'),
-        likes: likesCounter,
-        condition: false,
-    })
+        author: {
+            name: inputName.value
+                .replaceAll('<', '&lt;')
+                .replaceAll('>', '&gt;'),
+        },
+    }
 
-    renderComments()
+    fetch('https://wedev-api.sky.pro/api/v1/:murad-goysultanov/comments', {
+        method: 'POST',
+        body: JSON.stringify(newComments),
+    })
+        .then((response) => {
+            return response.json()
+        })
+        .then((data) => {
+            updateComments(data.comments)
+            renderComments()
+        })
+
+    // comments.push({
+    //     name: inputName.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
+    //     date: formatDate(new Date()),
+    //     text: inputComment.value
+    //         .replaceAll('<', '&lt;')
+    //         .replaceAll('>', '&gt;'),
+    //     likes: likesCounter,
+    //     condition: false,
+    // })
+
+    // renderComments()
     inputName.value = ''
     inputComment.value = ''
 })
