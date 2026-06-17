@@ -11,12 +11,12 @@ export const initClickLikes = () => {
             const index = commentsLike.dataset.index
 
             event.stopPropagation()
-            comments[index].condition = !comments[index].condition
+            comments[index].isLiked = !comments[index].isLiked
 
-            if (comments[index].condition) {
-                comments[index].like++
+            if (comments[index].isLiked) {
+                comments[index].likes++
             } else {
-                comments[index].like--
+                comments[index].likes--
             }
 
             renderComments()

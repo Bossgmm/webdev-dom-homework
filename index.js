@@ -7,7 +7,7 @@ fetch('https://wedev-api.sky.pro/api/v1/:murad-goysultanov/comments')
         return response.json()
     })
     .then((data) => {
-        console.log(data)
+        console.log(data.comments[0])
         updateComments(data.comments)
         renderComments()
     })
@@ -47,7 +47,7 @@ button.addEventListener('click', () => {
         text: inputComment.value
             .replaceAll('<', '&lt;')
             .replaceAll('>', '&gt;'),
-        like: likesCounter,
+        likes: likesCounter,
         condition: false,
     })
 
