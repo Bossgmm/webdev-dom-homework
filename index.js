@@ -1,8 +1,16 @@
 import { renderComments } from './modules/render.js'
-import { comments } from './modules/comments.js'
+import { comments, updateComments } from './modules/comments.js'
 import { inputComment } from './modules/init.js'
 
-renderComments()
+fetch('https://wedev-api.sky.pro/api/v1/:murad-goysultanov/comments')
+    .then((response) => {
+        return response.json()
+    })
+    .then((data) => {
+        console.log(data)
+        updateComments(data.comments)
+        renderComments()
+    })
 
 const button = document.getElementById('add')
 const inputName = document.getElementById('name')
