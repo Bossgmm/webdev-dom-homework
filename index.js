@@ -2,12 +2,11 @@ import { renderComments } from './modules/render.js'
 import { comments, updateComments } from './modules/comments.js'
 import { inputComment } from './modules/init.js'
 
-fetch('https://wedev-api.sky.pro/api/v1/:murad-goysultanov/comments')
+fetch('https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments')
     .then((response) => {
         return response.json()
     })
     .then((data) => {
-        console.log(data.comments[0])
         updateComments(data.comments)
         renderComments()
     })
@@ -34,50 +33,34 @@ function formatDate(date) {
 button.addEventListener('click', () => {
     inputName.classList.remove('error')
     inputComment.classList.remove('error')
+
     if (inputName.value === '' || inputComment.value === '') {
         inputName.classList.add('error')
         inputComment.classList.add('error')
-
         return
     }
 
     const newComments = {
-        date: formatDate(new Date()),
-        likes: likesCounter,
-        isLiked: false,
-        text: inputComment.value
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;'),
-        author: {
-            name: inputName.value
-                .replaceAll('<', '&lt;')
-                .replaceAll('>', '&gt;'),
-        },
+        name: inputName.value.replaceAll('<', '<').replaceAll('>', '>'),
+        text: inputComment.value.replaceAll('<', '<').replaceAll('>', '>'),
     }
 
-    fetch('https://wedev-api.sky.pro/api/v1/:murad-goysultanov/comments', {
+    fetch('https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments', {
         method: 'POST',
         body: JSON.stringify(newComments),
     })
-        .then((response) => {
-            return response.json()
+        .then((response) => response.json())
+        .then(() => {
+            return fetch(
+                'https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments',
+            )
         })
+        .then((response) => response.json())
         .then((data) => {
             updateComments(data.comments)
             renderComments()
+
+            inputName.value = ''
+            inputComment.value = ''
         })
-
-    // comments.push({
-    //     name: inputName.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
-    //     date: formatDate(new Date()),
-    //     text: inputComment.value
-    //         .replaceAll('<', '&lt;')
-    //         .replaceAll('>', '&gt;'),
-    //     likes: likesCounter,
-    //     condition: false,
-    // })
-
-    // renderComments()
-    inputName.value = ''
-    inputComment.value = ''
 })
