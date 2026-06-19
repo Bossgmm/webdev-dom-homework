@@ -1,5 +1,5 @@
 import { renderComments } from './modules/render.js'
-import { comments, updateComments } from './modules/comments.js'
+import { updateComments } from './modules/comments.js'
 import { inputComment } from './modules/init.js'
 
 fetch('https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments')
@@ -14,21 +14,21 @@ fetch('https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments')
 const button = document.getElementById('add')
 const inputName = document.getElementById('name')
 
-let likesCounter = 0
+// let likesCounter = 0
 
-function formatDate(date) {
-    const d = new Date(date)
+// function formatDate(date) {
+//     const d = new Date(date)
 
-    const day = String(d.getDate()).padStart(2, '0')
-    const month = String(d.getMonth() + 1).padStart(2, '0')
-    const year = String(d.getFullYear()).slice(-2)
+//     const day = String(d.getDate()).padStart(2, '0')
+//     const month = String(d.getMonth() + 1).padStart(2, '0')
+//     const year = String(d.getFullYear()).slice(-2)
 
-    const hours = String(d.getHours()).padStart(2, '0')
+//     const hours = String(d.getHours()).padStart(2, '0')
 
-    const minutes = String(d.getMinutes()).padStart(2, '0')
+//     const minutes = String(d.getMinutes()).padStart(2, '0')
 
-    return `${day}.${month}.${year} ${hours}:${minutes}`
-}
+//     return `${day}.${month}.${year} ${hours}:${minutes}`
+// }
 
 button.addEventListener('click', () => {
     inputName.classList.remove('error')
