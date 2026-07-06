@@ -1,42 +1,21 @@
-import { inputComment } from './modules/init.js'
-import { getCommentsApi, postCommentsApi } from './modules/requestes.js'
+import { formatDate, initAddComment } from './modules/init.js'
+import { getCommentsApi } from './modules/api.js'
+import { updateComments } from './modules/comments.js'
+import { renderComments } from './modules/render.js'
 
-export function formatDate(date) {
-    const d = new Date(date)
+function loadComments() {
+    getCommentsApi().then((data) => {
+        const formattedComments = data.comments.map((comment) => {
+            return {
+                ...comment,
+                date: formatDate(comment.date),
+            }
+        })
 
-    const day = String(d.getDate()).padStart(2, '0')
-    const month = String(d.getMonth() + 1).padStart(2, '0')
-    const year = String(d.getFullYear()).slice(-2)
-    const hours = String(d.getHours()).padStart(2, '0')
-    const minutes = String(d.getMinutes()).padStart(2, '0')
-
-    return `${day}.${month}.${year} ${hours}:${minutes}`
+        updateComments(formattedComments)
+        renderComments()
+    })
 }
 
-getCommentsApi()
-
-const button = document.getElementById('add')
-const inputName = document.getElementById('name')
-
-button.addEventListener('click', () => {
-    inputName.classList.remove('error')
-    inputComment.classList.remove('error')
-
-    if (inputName.value === '' || inputComment.value === '') {
-        inputName.classList.add('error')
-        inputComment.classList.add('error')
-        return
-    }
-
-    const newComments = {
-        name: inputName.value.replaceAll('<', '&lt;').replaceAll('>', '&gt;'),
-        text: inputComment.value
-            .replaceAll('<', '&lt;')
-            .replaceAll('>', '&gt;'),
-    }
-
-    postCommentsApi(newComments)
-
-    inputName.value = ''
-    inputComment.value = ''
-})
+loadComments()
+initAddComment()
