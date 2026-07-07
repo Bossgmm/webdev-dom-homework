@@ -1,16 +1,5 @@
-export const comments = [
-    {
-        name: 'Глеб Фокин',
-        date: '12.02.22 12:18',
-        text: 'Это будет первый комментарий на этой странице',
-        like: 3,
-        condition: false,
-    },
-    {
-        name: 'Варвара Н.',
-        date: '13.02.22 19:22',
-        text: 'Мне нравится как оформлена эта страница! ❤',
-        like: 75,
-        condition: false,
-    },
-]
+export let comments = []
+
+export const updateComments = (newComments) => {
+    comments = newComments
+}
