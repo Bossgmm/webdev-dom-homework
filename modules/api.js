@@ -11,5 +11,11 @@ export function postCommentsApi(newComment) {
             method: 'POST',
             body: JSON.stringify(newComment),
         },
-    ).then((response) => response.json())
+    )
+        .then(() => {
+            return fetch(
+                'https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments',
+            )
+        })
+        .then((response) => response.json())
 }
