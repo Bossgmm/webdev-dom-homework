@@ -19,4 +19,3 @@ function loadComments() {
 
 loadComments()
 initAddComment()
- 
