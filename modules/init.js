@@ -102,9 +102,17 @@ export function initAddComment() {
             })
     })
 }
+
 export function listLoader() {
     list.style.display = 'none'
     container.prepend(newParagraph)
     button.disabled = true
     button.textContent = 'Подождите'
+}
+
+export function listUnLoader() {
+    newParagraph.remove()
+    list.style.display = 'flex'
+    button.disabled = false
+    button.textContent = 'Написать'
 }
