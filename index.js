@@ -11,7 +11,6 @@ function loadComments() {
                 date: formatDate(comment.date),
             }
         })
-
         updateComments(formattedComments)
         renderComments()
     })

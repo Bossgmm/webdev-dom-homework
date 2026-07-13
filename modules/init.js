@@ -6,6 +6,10 @@ import { updateComments } from './comments.js'
 export const inputComment = document.getElementById('comment')
 const button = document.getElementById('add')
 const inputName = document.getElementById('name')
+const container = document.getElementById('container')
+const list = document.getElementById('list')
+const newParagraph = document.createElement('p')
+newParagraph.textContent = 'Происходит загрузка. Пожалуйста подождите...'
 
 export function formatDate(date) {
     const d = new Date(date)
@@ -74,9 +78,15 @@ export function initAddComment() {
                 .replaceAll('>', '&gt;'),
         }
 
+        button.disabled = true
+        button.textContent = 'Создание задачи'
+
         postCommentsApi(newComment)
             .then(() => getCommentsApi())
             .then((data) => {
+                button.disabled = false
+                button.textContent = 'Написать'
+
                 const formattedComments = data.comments.map((comment) => {
                     return {
                         ...comment,
@@ -91,4 +101,18 @@ export function initAddComment() {
                 inputComment.value = ''
             })
     })
+}
+
+export function listLoader() {
+    list.style.display = 'none'
+    container.prepend(newParagraph)
+    button.disabled = true
+    button.textContent = 'Подождите'
+}
+
+export function listUnLoader() {
+    newParagraph.remove()
+    list.style.display = 'flex'
+    button.disabled = false
+    button.textContent = 'Написать'
 }
