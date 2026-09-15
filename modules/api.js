@@ -23,6 +23,9 @@ export function postCommentsApi(newComment) {
                 'https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments',
             )
         })
+        .catch((error) => {
+            alert(error)
+        })
         .then((response) => response.json())
         .finally(() => {
             listUnLoader()
