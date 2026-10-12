@@ -28,7 +28,7 @@ export function postCommentsApi(newComment) {
                 if (response.status === 400) {
                     throw new Error('Имя должно содержать хотя бы 3 символа')
                 }
-                throw new Error('Что-то пошло не так')
+                throw new Error('Что-то пошло не так') 
             }
         })
         .then(() => {
