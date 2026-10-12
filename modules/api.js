@@ -12,7 +12,7 @@ export function getCommentsApi() {
 export function postCommentsApi(newComment) {
     listLoader()
     return fetch(
-        'https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments',
+        'https://wedev-api.sky.pro/api/v1/murad-goysultanov/commentss',
         {
             method: 'POST',
             body: JSON.stringify(newComment),
@@ -21,21 +21,20 @@ export function postCommentsApi(newComment) {
         .then((response) => {
             if (response.status === 201) {
                 return response.json()
-            }
-            if (response.status === 400) {
-                throw new Error('Имя и текст доджны составлять более 3-х букв')
-            }
-            if (response.status === 500) {
-                throw new Error('проблема на стороне сервера')
+            } else {
+                if (response.status === 500) {
+                    throw new Error('Проблема на сервере')
+                }
+                if (response.status === 400) {
+                    throw new Error('Имя должно содержать хотя бы 3 символа')
+                }
+                throw new Error('Что-то пошло не так')
             }
         })
         .then(() => {
             return fetch(
                 'https://wedev-api.sky.pro/api/v1/murad-goysultanov/comments',
             )
-        })
-        .catch((error) => {
-            alert(error)
         })
         .then((response) => response.json())
         .finally(() => {

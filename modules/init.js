@@ -76,10 +76,10 @@ export function initAddComment() {
             text: inputComment.value
                 .replaceAll('<', '&lt;')
                 .replaceAll('>', '&gt;'),
+            forceError: true,
         }
 
         button.disabled = true
-        button.textContent = 'Создание задачи'
 
         postCommentsApi(newComment)
             .then(() => getCommentsApi())
@@ -99,6 +99,9 @@ export function initAddComment() {
 
                 inputName.value = ''
                 inputComment.value = ''
+            })
+            .catch((error) => {
+                alert(error.message)
             })
     })
 }
